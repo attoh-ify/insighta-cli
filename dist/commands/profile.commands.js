@@ -173,8 +173,6 @@ function registerProfileCommands(program) {
         var _a, _b, _c, _d, _e, _f, _g;
         const spinner = (0, ora_1.default)(`Creating profile for "${options.name}"...`).start();
         try {
-            console.log("get here");
-            console.log({ name: options.name });
             const result = await (0, api_service_1.apiRequest)({
                 method: "POST",
                 url: "/api/profiles",

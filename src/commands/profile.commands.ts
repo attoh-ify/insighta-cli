@@ -181,10 +181,8 @@ export function registerProfileCommands(program: Command) {
     .requiredOption("--name <name>", "Name of the person to profile")
     .action(async (options) => {
       const spinner = ora(`Creating profile for "${options.name}"...`).start();
-
+      
       try {
-        console.log("get here")
-        console.log({ name: options.name })
         const result = await apiRequest<any>({
           method: "POST",
           url: "/api/profiles",

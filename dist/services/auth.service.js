@@ -5,6 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.login = login;
 exports.logout = logout;
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const http_1 = __importDefault(require("http"));
 const open_1 = __importDefault(require("open"));
 const axios_1 = __importDefault(require("axios"));
@@ -14,12 +16,12 @@ const config_1 = require("../config");
 const credential_service_1 = require("./credential.service");
 const pkce_1 = require("../utils/pkce");
 const api_service_1 = require("./api.service");
+const port = process.env.PORT || 8976;
 async function login() {
     const state = (0, pkce_1.generateState)();
     const codeVerifier = (0, pkce_1.generateCodeVerifier)();
     const codeChallenge = (0, pkce_1.generateCodeChallenge)(codeVerifier);
-    const port = 8976;
-    const callbackUrl = `http://localhost:${port}/callback`;
+    const callbackUrl = process.env.BASE_URL || `http://localhost:${port}/callback`;
     const authUrl = `${config_1.config.apiUrl}/auth/github` +
         `?client=cli` +
         `&redirect_uri=${encodeURIComponent(callbackUrl)}` +

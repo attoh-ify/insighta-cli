@@ -1,3 +1,7 @@
+import dotenv from "dotenv";
+
+dotenv.config();
+
 import http from "http";
 import open from "open";
 import axios from "axios";
@@ -12,13 +16,13 @@ import {
 } from "../utils/pkce";
 import { apiRequest } from "./api.service";
 
+const port = process.env.PORT || 8976;
 export async function login(): Promise<void> {
   const state = generateState();
   const codeVerifier = generateCodeVerifier();
   const codeChallenge = generateCodeChallenge(codeVerifier);
 
-  const port = 8976;
-  const callbackUrl = `http://localhost:${port}/callback`;
+  const callbackUrl = process.env.BASE_URL || `http://localhost:${port}/callback`;
 
   const authUrl =
     `${config.apiUrl}/auth/github` +
